@@ -1,0 +1,23 @@
+{
+  "name": "marcelofabianov/savings-mate",
+  "type": "project",
+  "license": "MIT",
+  "description": "Seu parceiro financeiro",
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "SavingsMate\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SavingsMate\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {},
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

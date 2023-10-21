@@ -1,0 +1,3 @@
+# SavingsMate
+
+Seu parceiro financeiro.
