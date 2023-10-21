@@ -7,7 +7,10 @@
     "php": "^8.2"
   },
   "require-dev": {
-    "pestphp/pest": "^2.24"
+    "pestphp/pest": "^2.24",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest-plugin-watch": "^2.0",
+    "pestphp/pest-plugin-type-coverage": "^2.4"
   },
   "autoload": {
     "psr-4": {
