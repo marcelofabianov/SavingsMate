@@ -7,4 +7,6 @@ namespace SavingsMate\Interfaces\Domain\Core;
 interface IValueObject
 {
     public function __toString(): string;
+
+    public function toString(): string;
 }
