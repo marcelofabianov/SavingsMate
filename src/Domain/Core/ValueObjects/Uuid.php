@@ -19,8 +19,8 @@ final readonly class Uuid extends ValueObject implements IUuid
         return '';
     }
 
-    public static function create(): IUuid
+    public static function create(string $value): IUuid
     {
-        return new self('');
+        return new self($value);
     }
 }

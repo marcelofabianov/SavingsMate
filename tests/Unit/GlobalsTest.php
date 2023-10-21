@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-test('Nao deve conter chamadas de funcoes globais de debug')
-    ->expect(['dd', 'dump'])
+test('Nao deve ser chamado funcoes globais de debug')
+    ->expect(['dd', 'dump', 'print', 'print_r', 'var_dump', 'ds'])
     ->not->toBeUsed();
 
-test('Toda Interface deve iniciar a letra I')
+test('Toda Interface deve iniciar com a letra I')
     ->expect('SavingsMate\Interfaces')
     ->toHavePrefix('I');
 
-test('Todo arquivo deve ter strict types')
+test('Todo arquivo deve ter conter strict types ativo')
     ->expect('SavingsMate')
     ->toUseStrictTypes();
 

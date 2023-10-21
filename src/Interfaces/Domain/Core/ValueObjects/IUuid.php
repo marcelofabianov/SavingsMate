@@ -8,5 +8,5 @@ use SavingsMate\Interfaces\Domain\Core\IValueObject;
 
 interface IUuid extends IValueObject
 {
-    public static function create(): self;
+    public static function create(string $value): self;
 }
