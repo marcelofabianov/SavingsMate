@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: _docker/local/php-fpm
+      dockerfile: Dockerfile
+    image: savings-mate-app/php-fpm
+    restart: always
+    working_dir: /var/www/SavingsMate
+    volumes:
+      - .:/var/www/SavingsMate
+    networks:
+      - savings_mate_network
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+      - "9003:9003"
+
+networks:
+  savings_mate_network:
+    driver: bridge
