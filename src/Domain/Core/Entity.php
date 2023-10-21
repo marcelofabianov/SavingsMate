@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace SavingsMate\Domain\Core;
 
 use JsonException;
+use SavingsMate\Interfaces\Domain\Core\IEntity;
 
-abstract readonly class Entity
+abstract readonly class Entity implements IEntity
 {
     abstract public function toArray(): array;
 
