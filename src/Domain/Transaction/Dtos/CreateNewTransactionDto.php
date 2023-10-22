@@ -13,6 +13,7 @@ use SavingsMate\Domain\Transaction\Enums\PaymentTypeEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionRecurrenceEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionStatusEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionTypeEnum;
+use SavingsMate\Domain\Transaction\Enums\TransactionValueTypeEnum;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
@@ -28,11 +29,15 @@ final readonly class CreateNewTransactionDto implements ICreateNewTransactionDto
 
     public function __construct(
         public IUuid $categoryId,
+        public IUuid $supplierId,
+        public ?IUuid $cardId,
+        public ?IUuid $bankAccountId,
         public float $amount,
         public string $description,
         public PaymentMethodEnum $paymentMethod,
         public TransactionTypeEnum $type,
         public TransactionRecurrenceEnum $recurrence,
+        public TransactionValueTypeEnum $valueType,
         public TransactionStatusEnum $status,
         public PaymentTypeEnum $paymentType,
         public ?DateTimeInterface $expectedAt,

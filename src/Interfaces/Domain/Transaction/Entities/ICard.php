@@ -11,11 +11,11 @@ use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
-interface ISupplier extends IEntity
+interface ICard extends IEntity
 {
     public static function create(
         string $name,
-        ?string $contact,
+        bool $main,
         ?IUuid $id,
         ?IInactivatedAt $inactivatedAt,
         ?IDeletedAt $deletedAt,

@@ -11,6 +11,7 @@ use SavingsMate\Domain\Transaction\Enums\PaymentTypeEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionRecurrenceEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionStatusEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionTypeEnum;
+use SavingsMate\Domain\Transaction\Enums\TransactionValueTypeEnum;
 use SavingsMate\Domain\Transaction\Exceptions\TransactionEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
@@ -25,6 +26,9 @@ final readonly class Transaction extends Entity implements ITransaction
     private function __construct(
         private IUuid $id,
         private IUuid $categoryId,
+        private Iuuid $supplierId,
+        private ?IUuid $cardId,
+        private ?IUuid $bankAccountId,
         private float $amount,
         private ?DateTimeInterface $expectedAt,
         private ?DateTimeInterface $confirmedAt,
@@ -34,6 +38,7 @@ final readonly class Transaction extends Entity implements ITransaction
         private PaymentMethodEnum $paymentMethod,
         private TransactionTypeEnum $type,
         private TransactionRecurrenceEnum $recurrence,
+        private TransactionValueTypeEnum $valueType,
         private TransactionStatusEnum $status,
         private PaymentTypeEnum $paymentType,
         private ICreatedAt $createdAt,
@@ -46,6 +51,9 @@ final readonly class Transaction extends Entity implements ITransaction
         return [
             'id' => $this->id->toString(),
             'categoryId' => $this->categoryId->toString(),
+            'supplierId' => $this->supplierId->toString(),
+            'cardId' => $this->cardId?->toString(),
+            'bankAccountId' => $this->bankAccountId?->toString(),
             'amount' => $this->amount,
             'expectedAt' => $this->expectedAt?->format('Y-m-d H:i:s'),
             'confirmedAt' => $this->confirmedAt?->format('Y-m-d H:i:s'),
@@ -55,6 +63,7 @@ final readonly class Transaction extends Entity implements ITransaction
             'paymentMethod' => $this->paymentMethod->value,
             'type' => $this->type->value,
             'recurrence' => $this->recurrence->value,
+            'valueType' => $this->valueType->value,
             'status' => $this->status->value,
             'paymentType' => $this->paymentType->value,
             'createdAt' => $this->createdAt->toString(),
@@ -71,6 +80,9 @@ final readonly class Transaction extends Entity implements ITransaction
             return new self(
                 id: $dto->id,
                 categoryId: $dto->categoryId,
+                supplierId: $dto->supplierId,
+                cardId: $dto->cardId,
+                bankAccountId: $dto->bankAccountId,
                 amount: $dto->amount,
                 expectedAt: $dto->expectedAt,
                 confirmedAt: $dto->confirmedAt,
@@ -80,6 +92,7 @@ final readonly class Transaction extends Entity implements ITransaction
                 paymentMethod: $dto->paymentMethod,
                 type: $dto->type,
                 recurrence: $dto->recurrence,
+                valueType: $dto->valueType,
                 status: $dto->status,
                 paymentType: $dto->paymentType,
                 createdAt: $dto->createdAt,
