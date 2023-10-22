@@ -16,6 +16,7 @@ use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
@@ -25,7 +26,7 @@ final readonly class User extends Entity implements IUser
     private function __construct(
         private IUuid $id,
         private string $name,
-        private string $email,
+        private IEmail $email,
         private string $password,
         private InactivatedAt $inactivatedAt,
         private IDeletedAt $deletedAt,
@@ -53,7 +54,7 @@ final readonly class User extends Entity implements IUser
      */
     public static function create(
         string $name,
-        string $email,
+        IEmail $email,
         string $password,
         ?IUuid $id,
         ?IInactivatedAt $inactivatedAt,
