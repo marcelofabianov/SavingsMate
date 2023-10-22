@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('Toda classe DTO deve conter o sufixo Dto')
+test('Toda classe DTO deve conter o sufixo Dtos')
     ->expect('SavingsMate\Domain\Transaction\Dtos')
     ->toHaveSuffix('Dto');
 
