@@ -2,4 +2,6 @@
 
 declare(strict_types=1);
 
-echo 'Hello World';
+require __DIR__.'/../vendor/autoload.php';
+
+dd('SavingsMate');

@@ -52,7 +52,7 @@ final readonly class Uuid extends ValueObject implements IUuid
     public static function create(string $value): IUuid
     {
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue($value);
+            throw SavingsMateValueObjectException::invalidValue('Uuid', $value);
         }
 
         return new self($value);

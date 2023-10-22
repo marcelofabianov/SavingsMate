@@ -9,8 +9,8 @@ use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectExcepti
 
 final class SavingsMateValueObjectException extends SavingsMateException implements ISavingsMateValueObjectException
 {
-    public static function invalidValue(string $value): ISavingsMateValueObjectException
+    public static function invalidValue(string $valueObject, ?string $value = null): ISavingsMateValueObjectException
     {
-        return new self(sprintf('Invalid value: %s', $value));
+        return new self(sprintf('Invalid value for %s: %s', $valueObject, $value ?? ''));
     }
 }
