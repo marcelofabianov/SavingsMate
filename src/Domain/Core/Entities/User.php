@@ -40,14 +40,14 @@ final readonly class User extends Entity implements IUser
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id->toString(),
             'name' => $this->name,
-            'email' => $this->email,
-            'password' => $this->password,
-            'inactivatedAt' => $this->inactivatedAt,
-            'deletedAt' => $this->deletedAt,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt,
+            'email' => $this->email->toString(),
+            'password' => $this->password->hash('salt'),
+            'inactivatedAt' => $this->inactivatedAt->toString(),
+            'deletedAt' => $this->deletedAt->toString(),
+            'createdAt' => $this->createdAt->toString(),
+            'updatedAt' => $this->updatedAt->toString(),
         ];
     }
 
