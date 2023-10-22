@@ -11,45 +11,60 @@ use Exception;
 use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
-use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 
-final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
+final readonly class DeletedAt extends ValueObject implements IDeletedAt
 {
     private const DEFAULT_FORMAT = 'Y-m-d H:i:s';
 
     private function __construct(
-        private DateTimeInterface $value
+        private ?DateTimeInterface $value
     ) {
     }
 
     public function __toString(): string
     {
-        return $this->value->format(self::DEFAULT_FORMAT);
+        return $this->value ? $this->value->format(self::DEFAULT_FORMAT) : '';
     }
 
-    public function getValue(): DateTimeInterface
+    public function getValue(): ?DateTimeInterface
     {
         return $this->value;
     }
 
-    public function toIso8601(): string
+    public function toIso8601(): string|null
     {
-        return $this->value->format(DateTimeInterface::ATOM);
+        return $this->value?->format(DateTimeInterface::ATOM);
     }
 
     public function format(string $format = self::DEFAULT_FORMAT): string|null
     {
         try {
-            return $this->value->format($format);
+            return $this->value?->format($format);
         } catch (Exception) {
             return null;
         }
     }
 
+    public function isNull(): bool
+    {
+        return $this->value === null;
+    }
+
+    public function isNotNull(): bool
+    {
+        return $this->value !== null;
+    }
+
+    public static function nullable(): IDeletedAt
+    {
+        return new self(null);
+    }
+
     /**
      * @throws Exception
      */
-    public static function random(): IUpdatedAt
+    public static function random(): IDeletedAt
     {
         $random = (new DateTime())
             ->setDate(random_int(2000, (int) date('Y')), random_int(1, 12), random_int(1, 28));
@@ -57,9 +72,9 @@ final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
         return new self($random);
     }
 
-    public static function now(): IUpdatedAt
+    public static function now(): IDeletedAt
     {
-        return new self(new DateTimeImmutable());
+        return new self(new DateTime());
     }
 
     /**
@@ -88,10 +103,14 @@ final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
      * @throws ISavingsMateValueObjectException
      * @throws Exception
      */
-    public static function create(string|DateTimeInterface $value): IUpdatedAt
+    public static function create(string|null|DateTimeInterface $value): IDeletedAt
     {
+        if ($value === null) {
+            return new self(null);
+        }
+
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('UpdatedAt', $value);
+            throw SavingsMateValueObjectException::invalidValue('DeletedAt', $value);
         }
 
         if ($value instanceof DateTimeInterface) {

@@ -8,6 +8,10 @@ test('Classes de ValueObjects devem implementar a interface IValueObject')
     ->expect('SavingsMate\Domain\Core\ValueObjects')
     ->toImplement(IValueObject::class);
 
+test('Toda interface de ValueObject extender a interface IValueObject')
+    ->expect('SavingsMate\Interfaces\Domain\Core\ValueObjects')
+    ->toExtend(IValueObject::class);
+
 test('Classes de ValueObjects devem extender a classe ValueObject')
     ->expect('SavingsMate\Domain\Core\ValueObjects')
     ->toExtend(SavingsMate\Domain\Core\ValueObject::class);

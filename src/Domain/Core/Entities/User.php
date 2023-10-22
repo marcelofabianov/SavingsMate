@@ -10,10 +10,14 @@ use Exception;
 use SavingsMate\Domain\Core\Entity;
 use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
 use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
+use SavingsMate\Domain\Core\ValueObjects\DeletedAt;
+use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
 final readonly class User extends Entity implements IUser
@@ -24,9 +28,9 @@ final readonly class User extends Entity implements IUser
         private string $email,
         private string $password,
         private DateTimeInterface $inactivatedAt,
-        private DateTimeInterface $deletedAt,
+        private IDeletedAt $deletedAt,
         private ICreatedAt $createdAt,
-        private DateTimeInterface $updatedAt
+        private IUpdatedAt $updatedAt
     ) {
     }
 
@@ -53,9 +57,9 @@ final readonly class User extends Entity implements IUser
         string $password,
         ?IUuid $id,
         ?DateTimeInterface $inactivatedAt,
-        ?DateTimeInterface $deletedAt,
+        ?IDeletedAt $deletedAt,
         ?ICreatedAt $createdAt,
-        ?DateTimeInterface $updatedAt
+        ?IUpdatedAt $updatedAt
     ): IUser {
         try {
             return new self(
@@ -64,9 +68,9 @@ final readonly class User extends Entity implements IUser
                 email: $email,
                 password: $password,
                 inactivatedAt: $inactivatedAt ?? new DateTimeImmutable(),
-                deletedAt: $deletedAt ?? new DateTimeImmutable(),
+                deletedAt: $deletedAt ?? DeletedAt::nullable(),
                 createdAt: $createdAt ?? CreatedAt::now(),
-                updatedAt: $updatedAt ?? new DateTimeImmutable()
+                updatedAt: $updatedAt ?? UpdatedAt::now(),
             );
         } catch (Exception) {
             throw SavingsMateEntityException::InvalidEntity(__CLASS__);
