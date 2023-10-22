@@ -10,6 +10,7 @@ use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
 use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
 use SavingsMate\Domain\Core\ValueObjects\DeletedAt;
 use SavingsMate\Domain\Core\ValueObjects\InactivatedAt;
+use SavingsMate\Domain\Core\ValueObjects\Password;
 use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
@@ -18,6 +19,7 @@ use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IPassword;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
@@ -27,7 +29,7 @@ final readonly class User extends Entity implements IUser
         private IUuid $id,
         private string $name,
         private IEmail $email,
-        private string $password,
+        private IPassword $password,
         private InactivatedAt $inactivatedAt,
         private IDeletedAt $deletedAt,
         private ICreatedAt $createdAt,
@@ -55,7 +57,7 @@ final readonly class User extends Entity implements IUser
     public static function create(
         string $name,
         IEmail $email,
-        string $password,
+        ?IPassword $password,
         ?IUuid $id,
         ?IInactivatedAt $inactivatedAt,
         ?IDeletedAt $deletedAt,
@@ -67,7 +69,7 @@ final readonly class User extends Entity implements IUser
                 id: $id ?? Uuid::random(),
                 name: $name,
                 email: $email,
-                password: $password,
+                password: $password ?? Password::random(),
                 inactivatedAt: $inactivatedAt ?? InactivatedAt::nullable(),
                 deletedAt: $deletedAt ?? DeletedAt::nullable(),
                 createdAt: $createdAt ?? CreatedAt::now(),
