@@ -51,12 +51,12 @@ final readonly class Card extends Entity implements ICard
      */
     public static function create(
         string $name,
-        bool $main,
-        ?IUuid $id,
-        ?IInactivatedAt $inactivatedAt,
-        ?IDeletedAt $deletedAt,
-        ?ICreatedAt $createdAt,
-        ?IUpdatedAt $updatedAt
+        bool $main = false,
+        ?IUuid $id = null,
+        ?IInactivatedAt $inactivatedAt = null,
+        ?IDeletedAt $deletedAt = null,
+        ?ICreatedAt $createdAt = null,
+        ?IUpdatedAt $updatedAt = null
     ): ICard {
         try {
             return new self(
