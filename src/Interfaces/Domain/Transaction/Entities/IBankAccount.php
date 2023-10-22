@@ -15,11 +15,12 @@ interface IBankAccount extends IEntity
 {
     public static function create(
         string $name,
-        ?string $description,
-        ?IUuid $id,
-        ?IInactivatedAt $inactivatedAt,
-        ?IDeletedAt $deletedAt,
-        ?ICreatedAt $createdAt,
-        ?IUpdatedAt $updatedAt
+        ?bool $main = false,
+        ?string $description = null,
+        ?IUuid $id = null,
+        ?IInactivatedAt $inactivatedAt = null,
+        ?IDeletedAt $deletedAt = null,
+        ?ICreatedAt $createdAt = null,
+        ?IUpdatedAt $updatedAt = null
     ): self;
 }

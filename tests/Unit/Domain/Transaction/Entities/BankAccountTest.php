@@ -15,6 +15,7 @@ use SavingsMate\Interfaces\Domain\Transaction\Entities\IBankAccount;
 test('Deve criar uma nova instancia com todos os parametros validos', function () {
     $data = [
         'name' => fake()->company(),
+        'main' => fake()->boolean(),
         'description' => fake()->text(),
         'id' => Uuid::random(),
         'inactivatedAt' => InactivatedAt::random(),
@@ -25,6 +26,7 @@ test('Deve criar uma nova instancia com todos os parametros validos', function (
 
     $bankAccount = BankAccount::create(
         $data['name'],
+        $data['main'],
         $data['description'],
         $data['id'],
         $data['inactivatedAt'],
@@ -36,6 +38,7 @@ test('Deve criar uma nova instancia com todos os parametros validos', function (
     $expectedToArray = [
         'id' => $data['id']->toString(),
         'name' => $data['name'],
+        'main' => $data['main'],
         'description' => $data['description'],
         'inactivatedAt' => $data['inactivatedAt']->toString(),
         'deletedAt' => $data['deletedAt']->toString(),

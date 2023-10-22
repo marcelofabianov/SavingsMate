@@ -25,6 +25,7 @@ final readonly class BankAccount extends Entity implements IBankAccount
     private function __construct(
         private IUuid $id,
         private string $name,
+        private bool $main,
         private ?string $description,
         private IInactivatedAt $inactivatedAt,
         private IDeletedAt $deletedAt,
@@ -38,6 +39,7 @@ final readonly class BankAccount extends Entity implements IBankAccount
         return [
             'id' => $this->id->toString(),
             'name' => $this->name,
+            'main' => $this->main,
             'description' => $this->description,
             'inactivatedAt' => $this->inactivatedAt->toString(),
             'deletedAt' => $this->deletedAt->toString(),
@@ -51,6 +53,7 @@ final readonly class BankAccount extends Entity implements IBankAccount
      */
     public static function create(
         string $name,
+        ?bool $main = false,
         ?string $description = null,
         ?IUuid $id = null,
         ?IInactivatedAt $inactivatedAt = null,
@@ -62,6 +65,7 @@ final readonly class BankAccount extends Entity implements IBankAccount
             return new self(
                 id: $id ?? Uuid::random(),
                 name: $name,
+                main: $main,
                 description: $description,
                 inactivatedAt: $inactivatedAt ?? InactivatedAt::nullable(),
                 deletedAt: $deletedAt ?? DeletedAt::nullable(),
