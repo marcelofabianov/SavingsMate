@@ -24,6 +24,8 @@ use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
  * @property-read IUuid|null $cardId
  * @property-read IUuid|null $bankAccountId
  * @property-read IUuid|null $internalTransfer
+ * @property-read IUuid|null $installmentId
+ * @property-read IUuid|null $subscriptionId
  * @property-read float $amount
  * @property-read string $description
  * @property-read PaymentMethodEnum $paymentMethod
@@ -49,6 +51,8 @@ interface ICreateNewTransactionDto extends IDto
         ?IUuid $cardId,
         ?IUuid $bankAccountId,
         ?IUuid $internalTransfer,
+        ?IUuid $installmentId,
+        ?IUuid $subscriptionId,
         float $amount,
         string $description,
         PaymentMethodEnum $paymentMethod,

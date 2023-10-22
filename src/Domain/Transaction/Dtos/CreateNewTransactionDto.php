@@ -33,6 +33,8 @@ final readonly class CreateNewTransactionDto implements ICreateNewTransactionDto
         public ?IUuid $cardId,
         public ?IUuid $bankAccountId,
         public ?IUuid $internalTransfer,
+        public ?IUuid $installmentId,
+        public ?IUuid $subscriptionId,
         public float $amount,
         public string $description,
         public PaymentMethodEnum $paymentMethod,
