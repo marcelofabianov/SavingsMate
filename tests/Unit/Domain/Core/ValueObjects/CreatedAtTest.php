@@ -45,7 +45,7 @@ test('Deve retornar uma string no formato Y-m-d H:i:s quando o metodo __toString
 
 test('Deve retornar uma instancia de DateTimeInterface quando o metodo getValue for chamado')
     ->group('Unit', 'Datetime', 'CreatedAt', 'ValueObject')
-    ->expect(CreatedAt::create('2021-01-01 00:00:00')->getValue())->toBeInstanceOf(DateTime::class);
+    ->expect(CreatedAt::create('2021-01-01 00:00:00')->getValue())->toBeInstanceOf(DateTimeInterface::class);
 
 test('Deve retornar uma string formatada quando o metodo format for chamado')
     ->group('Unit', 'Datetime', 'CreatedAt', 'ValueObject')

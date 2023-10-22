@@ -6,19 +6,26 @@ namespace SavingsMate\Domain\Core\Entities;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Exception;
 use SavingsMate\Domain\Core\Entity;
+use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
+use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
+use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
 final readonly class User extends Entity implements IUser
 {
     private function __construct(
-        private string $id,
+        private IUuid $id,
         private string $name,
         private string $email,
         private string $password,
         private DateTimeInterface $inactivatedAt,
         private DateTimeInterface $deletedAt,
-        private DateTimeInterface $createdAt,
+        private ICreatedAt $createdAt,
         private DateTimeInterface $updatedAt
     ) {
     }
@@ -37,29 +44,32 @@ final readonly class User extends Entity implements IUser
         ];
     }
 
+    /**
+     * @throws ISavingsMateEntityException
+     */
     public static function create(
         string $name,
         string $email,
         string $password,
-        ?string $id,
+        ?IUuid $id,
         ?DateTimeInterface $inactivatedAt,
         ?DateTimeInterface $deletedAt,
-        ?DateTimeInterface $createdAt,
+        ?ICreatedAt $createdAt,
         ?DateTimeInterface $updatedAt
     ): IUser {
         try {
             return new self(
-                id: $id ?? '',
+                id: $id ?? Uuid::random(),
                 name: $name,
                 email: $email,
                 password: $password,
                 inactivatedAt: $inactivatedAt ?? new DateTimeImmutable(),
                 deletedAt: $deletedAt ?? new DateTimeImmutable(),
-                createdAt: $createdAt ?? new DateTimeImmutable(),
+                createdAt: $createdAt ?? CreatedAt::now(),
                 updatedAt: $updatedAt ?? new DateTimeImmutable()
             );
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        } catch (Exception) {
+            throw SavingsMateEntityException::InvalidEntity(__CLASS__);
         }
     }
 }

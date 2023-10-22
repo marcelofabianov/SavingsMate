@@ -8,4 +8,5 @@ use SavingsMate\Interfaces\Exceptions\ISavingsMateException;
 
 interface ISavingsMateEntityException extends ISavingsMateException
 {
+    public static function InvalidEntity(string $entity): self;
 }

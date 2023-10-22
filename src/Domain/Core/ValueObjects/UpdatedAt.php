@@ -11,9 +11,9 @@ use Exception;
 use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
-use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 
-final readonly class CreatedAt extends ValueObject implements ICreatedAt
+final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
 {
     private const DEFAULT_FORMAT = 'Y-m-d H:i:s';
 
@@ -49,7 +49,7 @@ final readonly class CreatedAt extends ValueObject implements ICreatedAt
     /**
      * @throws Exception
      */
-    public static function random(): ICreatedAt
+    public static function random(): IUpdatedAt
     {
         $random = (new DateTime())
             ->setDate(random_int(2000, (int) date('Y')), random_int(1, 12), random_int(1, 28));
@@ -57,7 +57,7 @@ final readonly class CreatedAt extends ValueObject implements ICreatedAt
         return new self($random);
     }
 
-    public static function now(): ICreatedAt
+    public static function now(): IUpdatedAt
     {
         return new self(new DateTimeImmutable());
     }
@@ -88,7 +88,7 @@ final readonly class CreatedAt extends ValueObject implements ICreatedAt
      * @throws ISavingsMateValueObjectException
      * @throws Exception
      */
-    public static function create(string|DateTimeInterface $value): ICreatedAt
+    public static function create(string|DateTimeInterface $value): IUpdatedAt
     {
         if (! self::validate($value)) {
             throw SavingsMateValueObjectException::invalidValue('CreatedAt', $value);
