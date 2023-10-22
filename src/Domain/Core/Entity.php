@@ -22,6 +22,14 @@ abstract readonly class Entity implements IEntity
     /**
      * @throws JsonException
      */
+    public function toString(): string
+    {
+        return $this->__toString();
+    }
+
+    /**
+     * @throws JsonException
+     */
     public function toJson(): string
     {
         return json_encode($this->toArray(), JSON_THROW_ON_ERROR);

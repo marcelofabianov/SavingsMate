@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SavingsMate\Domain\Core\Entities;
+namespace SavingsMate\Domain\Transaction\Entities;
 
 use Exception;
 use SavingsMate\Domain\Core\Entity;
@@ -10,26 +10,25 @@ use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
 use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
 use SavingsMate\Domain\Core\ValueObjects\DeletedAt;
 use SavingsMate\Domain\Core\ValueObjects\InactivatedAt;
-use SavingsMate\Domain\Core\ValueObjects\Password;
 use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
-use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
+use SavingsMate\Domain\Transaction\Enums\CategoryColorEnum;
+use SavingsMate\Domain\Transaction\Enums\TransactionTypeEnum;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
-use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
-use SavingsMate\Interfaces\Domain\Core\ValueObjects\IPassword;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
+use SavingsMate\Interfaces\Domain\Transaction\Entities\ICategory;
 
-final readonly class User extends Entity implements IUser
+final readonly class Category extends Entity implements ICategory
 {
     private function __construct(
         private IUuid $id,
         private string $name,
-        private IEmail $email,
-        private IPassword $password,
+        private CategoryColorEnum $color,
+        private TransactionTypeEnum $type,
         private IInactivatedAt $inactivatedAt,
         private IDeletedAt $deletedAt,
         private ICreatedAt $createdAt,
@@ -42,8 +41,8 @@ final readonly class User extends Entity implements IUser
         return [
             'id' => $this->id->toString(),
             'name' => $this->name,
-            'email' => $this->email->toString(),
-            'password' => $this->password->hash('salt'),
+            'color' => $this->color->value,
+            'type' => $this->type->value,
             'inactivatedAt' => $this->inactivatedAt->toString(),
             'deletedAt' => $this->deletedAt->toString(),
             'createdAt' => $this->createdAt->toString(),
@@ -56,24 +55,24 @@ final readonly class User extends Entity implements IUser
      */
     public static function create(
         string $name,
-        IEmail $email,
-        ?IPassword $password,
+        CategoryColorEnum $color,
+        TransactionTypeEnum $type,
         ?IUuid $id,
         ?IInactivatedAt $inactivatedAt,
         ?IDeletedAt $deletedAt,
         ?ICreatedAt $createdAt,
         ?IUpdatedAt $updatedAt
-    ): IUser {
+    ): ICategory {
         try {
             return new self(
                 id: $id ?? Uuid::random(),
                 name: $name,
-                email: $email,
-                password: $password ?? Password::random(),
+                color: $color,
+                type: $type,
                 inactivatedAt: $inactivatedAt ?? InactivatedAt::nullable(),
                 deletedAt: $deletedAt ?? DeletedAt::nullable(),
                 createdAt: $createdAt ?? CreatedAt::now(),
-                updatedAt: $updatedAt ?? UpdatedAt::now(),
+                updatedAt: $updatedAt ?? UpdatedAt::now()
             );
         } catch (Exception) {
             throw SavingsMateEntityException::InvalidEntity(__CLASS__);

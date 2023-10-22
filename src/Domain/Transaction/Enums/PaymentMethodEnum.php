@@ -8,6 +8,7 @@ enum PaymentMethodEnum: int
 {
     case CASH = 0;
     case CARD = 1;
-    case TRANSFER = 2;
-    case OTHER = 3;
+    case CARD_DEBIT = 2;
+    case TRANSFER = 3;
+    case OTHER = 4;
 }

@@ -8,6 +8,8 @@ interface IEntity
 {
     public function __toString(): string;
 
+    public function toString(): string;
+
     public function toArray(): array;
 
     public function toJson(): string;
