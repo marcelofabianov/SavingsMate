@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace SavingsMate\Domain\Core\Entities;
 
-use DateTimeImmutable;
-use DateTimeInterface;
 use Exception;
 use SavingsMate\Domain\Core\Entity;
 use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
 use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
 use SavingsMate\Domain\Core\ValueObjects\DeletedAt;
+use SavingsMate\Domain\Core\ValueObjects\InactivatedAt;
 use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
 use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
+use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
@@ -27,7 +27,7 @@ final readonly class User extends Entity implements IUser
         private string $name,
         private string $email,
         private string $password,
-        private DateTimeInterface $inactivatedAt,
+        private InactivatedAt $inactivatedAt,
         private IDeletedAt $deletedAt,
         private ICreatedAt $createdAt,
         private IUpdatedAt $updatedAt
@@ -56,7 +56,7 @@ final readonly class User extends Entity implements IUser
         string $email,
         string $password,
         ?IUuid $id,
-        ?DateTimeInterface $inactivatedAt,
+        ?IInactivatedAt $inactivatedAt,
         ?IDeletedAt $deletedAt,
         ?ICreatedAt $createdAt,
         ?IUpdatedAt $updatedAt
@@ -67,7 +67,7 @@ final readonly class User extends Entity implements IUser
                 name: $name,
                 email: $email,
                 password: $password,
-                inactivatedAt: $inactivatedAt ?? new DateTimeImmutable(),
+                inactivatedAt: $inactivatedAt ?? InactivatedAt::nullable(),
                 deletedAt: $deletedAt ?? DeletedAt::nullable(),
                 createdAt: $createdAt ?? CreatedAt::now(),
                 updatedAt: $updatedAt ?? UpdatedAt::now(),
