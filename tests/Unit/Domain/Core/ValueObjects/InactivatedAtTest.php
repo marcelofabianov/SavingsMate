@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObjects\InactivatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
 
@@ -59,7 +59,7 @@ test('Deve retornar uma nova instancia de InactivatedAt com valor randomico')
 
 test('Deve lancar uma excecao quando uma data invalida for passada como string')
     ->group('Unit', 'Datetime', 'CreatedAt', 'ValueObject')
-    ->throws(SavingsMateValueObjectException::class)
+    ->throws(CoreValueObjectException::class)
     ->expect(fn () => InactivatedAt::create(''));
 
 test('Deve retornar uma string no formato Y-m-d H:i:s quando o metodo __toString for chamado')

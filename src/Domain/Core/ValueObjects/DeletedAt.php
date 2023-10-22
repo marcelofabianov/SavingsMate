@@ -8,9 +8,9 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreValueObjectException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 
 final readonly class DeletedAt extends ValueObject implements IDeletedAt
@@ -100,7 +100,7 @@ final readonly class DeletedAt extends ValueObject implements IDeletedAt
     }
 
     /**
-     * @throws ISavingsMateValueObjectException
+     * @throws ICoreValueObjectException
      * @throws Exception
      */
     public static function create(string|null|DateTimeInterface $value): IDeletedAt
@@ -110,7 +110,7 @@ final readonly class DeletedAt extends ValueObject implements IDeletedAt
         }
 
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('DeletedAt', $value);
+            throw CoreValueObjectException::invalidValue('DeletedAt', $value);
         }
 
         if ($value instanceof DateTimeInterface) {

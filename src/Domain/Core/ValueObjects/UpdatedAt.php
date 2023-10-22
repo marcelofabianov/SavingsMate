@@ -8,9 +8,9 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreValueObjectException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 
 final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
@@ -85,13 +85,13 @@ final readonly class UpdatedAt extends ValueObject implements IUpdatedAt
     }
 
     /**
-     * @throws ISavingsMateValueObjectException
+     * @throws ICoreValueObjectException
      * @throws Exception
      */
     public static function create(string|DateTimeInterface $value): IUpdatedAt
     {
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('UpdatedAt', $value);
+            throw CoreValueObjectException::invalidValue('UpdatedAt', $value);
         }
 
         if ($value instanceof DateTimeInterface) {

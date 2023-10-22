@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SavingsMate\Domain\Core\ValueObjects;
 
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreValueObjectException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
 
 final readonly class Email extends ValueObject implements IEmail
@@ -52,7 +52,7 @@ final readonly class Email extends ValueObject implements IEmail
     }
 
     /**
-     * @throws ISavingsMateValueObjectException
+     * @throws ICoreValueObjectException
      */
     public static function create(string|IEmail $value): IEmail
     {
@@ -61,7 +61,7 @@ final readonly class Email extends ValueObject implements IEmail
         }
 
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('Email', $value);
+            throw CoreValueObjectException::invalidValue('Email', $value);
         }
 
         return new self($value);

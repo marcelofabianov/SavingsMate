@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use SavingsMate\Domain\Core\Exceptions\SavingsMatePasswordException;
+use SavingsMate\Domain\Core\Exceptions\CorePasswordException;
 use SavingsMate\Domain\Core\ValueObjects\Password;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IPassword;
 
@@ -20,7 +20,7 @@ test('Deve criar uma nova instancia de Password quando a senha informada for for
 
 test('Deve lancar uma excecao quando tentar criar uma instancia de Password com a senha fraca')
     ->group('Password', 'ValueObject', 'Domain', 'Core', 'Unit')
-    ->throws(SavingsMatePasswordException::class)
+    ->throws(CorePasswordException::class)
     ->expect(fn () => Password::create('12345678'));
 
 test('Deve retornar true quando a senha informada for igual a senha da instancia')
@@ -42,7 +42,7 @@ test('Deve criar uma nova instancia de Password com senha aleatoria valida com t
 
 test('Deve lancar uma excecao quando tentar criar uma instancia de Password com tamanho menor que o minimo')
     ->group('Password', 'ValueObject', 'Domain', 'Core', 'Unit')
-    ->throws(SavingsMatePasswordException::class)
+    ->throws(CorePasswordException::class)
     ->expect(fn () => Password::random(7));
 
 test('Deve retornar a senha criptografada')

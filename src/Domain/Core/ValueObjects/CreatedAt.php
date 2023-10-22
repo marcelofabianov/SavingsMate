@@ -8,9 +8,9 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreValueObjectException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 
 final readonly class CreatedAt extends ValueObject implements ICreatedAt
@@ -85,13 +85,13 @@ final readonly class CreatedAt extends ValueObject implements ICreatedAt
     }
 
     /**
-     * @throws ISavingsMateValueObjectException
+     * @throws ICoreValueObjectException
      * @throws Exception
      */
     public static function create(string|DateTimeInterface $value): ICreatedAt
     {
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('CreatedAt', $value);
+            throw CoreValueObjectException::invalidValue('CreatedAt', $value);
         }
 
         if ($value instanceof DateTimeInterface) {

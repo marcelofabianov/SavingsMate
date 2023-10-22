@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUpdatedAt;
 
@@ -36,7 +36,7 @@ test('Deve criar uma nova instancia de UpdatedAt com uma data valida como DateTi
 
 test('Deve lancar uma excecao quando uma data invalida for passada como string')
     ->group('UpdatedAt', 'ValueObject', 'Domain', 'Core', 'Unit')
-    ->throws(SavingsMateValueObjectException::class)
+    ->throws(CoreValueObjectException::class)
     ->expect(fn () => UpdatedAt::create(''));
 
 test('Deve retornar uma string no formato Y-m-d H:i:s quando o metodo __toString for chamado')

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 
@@ -20,12 +20,12 @@ test('Deve retonar uma nova instancia quando o UUID informado fo valido')
 
 test('Deve lancar uma exception quando o UUID informado for invalido ao tentar criar uma instancia')
     ->group('Unit', 'Datetime', 'Uuid', 'ValueObject')
-    ->throws(SavingsMateValueObjectException::class)
+    ->throws(CoreValueObjectException::class)
     ->expect(fn () => Uuid::create('28afa2b3-0c27-4a32-a7d8-d5431976ffb124'));
 
 test('Deve lancar uma exception quando informado uma string vazia ao tentar criar uma instancia')
     ->group('Unit', 'Datetime', 'Uuid', 'ValueObject')
-    ->throws(SavingsMateValueObjectException::class)
+    ->throws(CoreValueObjectException::class)
     ->expect(fn () => Uuid::create(''));
 
 test('Deve retornar uma nova instancia com UUID gerado aleatoriamente valido')

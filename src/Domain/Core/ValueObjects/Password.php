@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SavingsMate\Domain\Core\ValueObjects;
 
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMatePasswordException;
+use SavingsMate\Domain\Core\Exceptions\CorePasswordException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMatePasswordException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICorePasswordException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IPassword;
 
 final readonly class Password extends ValueObject implements IPassword
@@ -58,7 +58,7 @@ final readonly class Password extends ValueObject implements IPassword
     public static function random(?int $length = null): IPassword
     {
         if ($length !== null && $length < self::MIN_LENGTH) {
-            throw SavingsMatePasswordException::InvalidPasswordLength($length);
+            throw CorePasswordException::InvalidPasswordLength($length);
         }
 
         $length = random_int(self::MIN_LENGTH + 2, $length ?? self::MIN_LENGTH * random_int(2, 3));
@@ -90,12 +90,12 @@ final readonly class Password extends ValueObject implements IPassword
     }
 
     /**
-     * @throws ISavingsMatePasswordException
+     * @throws ICorePasswordException
      */
     public static function create(string $value): IPassword
     {
         if (! self::validate($value)) {
-            throw SavingsMatePasswordException::InvalidPasswordStrength(strlen($value));
+            throw CorePasswordException::InvalidPasswordStrength(strlen($value));
         }
 
         return new self($value);

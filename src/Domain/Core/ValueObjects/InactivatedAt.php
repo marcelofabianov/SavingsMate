@@ -8,9 +8,9 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObject;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateValueObjectException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreValueObjectException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IInactivatedAt;
 
 final readonly class InactivatedAt extends ValueObject implements IInactivatedAt
@@ -100,7 +100,7 @@ final readonly class InactivatedAt extends ValueObject implements IInactivatedAt
     }
 
     /**
-     * @throws ISavingsMateValueObjectException
+     * @throws ICoreValueObjectException
      * @throws Exception
      */
     public static function create(string|null|DateTimeInterface $value): IInactivatedAt
@@ -110,7 +110,7 @@ final readonly class InactivatedAt extends ValueObject implements IInactivatedAt
         }
 
         if (! self::validate($value)) {
-            throw SavingsMateValueObjectException::invalidValue('InactivatedAt', $value);
+            throw CoreValueObjectException::invalidValue('InactivatedAt', $value);
         }
 
         if ($value instanceof DateTimeInterface) {

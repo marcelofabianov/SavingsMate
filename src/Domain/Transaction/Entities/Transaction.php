@@ -6,18 +6,19 @@ namespace SavingsMate\Domain\Transaction\Entities;
 
 use DateTimeInterface;
 use SavingsMate\Domain\Core\Entity;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
 use SavingsMate\Domain\Transaction\Enums\PaymentMethodEnum;
 use SavingsMate\Domain\Transaction\Enums\PaymentTypeEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionRecurrenceEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionStatusEnum;
 use SavingsMate\Domain\Transaction\Enums\TransactionTypeEnum;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
+use SavingsMate\Domain\Transaction\Exceptions\TransactionEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
 use SavingsMate\Interfaces\Domain\Transaction\Dtos\ICreateNewTransactionDto;
 use SavingsMate\Interfaces\Domain\Transaction\Entities\ITransaction;
+use SavingsMate\Interfaces\Domain\Transaction\Exceptions\ITransactionEntityException;
+use Throwable;
 
 final readonly class Transaction extends Entity implements ITransaction
 {
@@ -62,7 +63,7 @@ final readonly class Transaction extends Entity implements ITransaction
     }
 
     /**
-     * @throws ISavingsMateEntityException
+     * @throws ITransactionEntityException
      */
     public static function create(ICreateNewTransactionDto $dto): ITransaction
     {
@@ -84,8 +85,8 @@ final readonly class Transaction extends Entity implements ITransaction
                 createdAt: $dto->createdAt,
                 deletedAt: $dto->deletedAt
             );
-        } catch (\Throwable) {
-            throw SavingsMateEntityException::InvalidEntity(__CLASS__);
+        } catch (Throwable) {
+            throw TransactionEntityException::InvalidEntity(__CLASS__);
         }
     }
 }

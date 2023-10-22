@@ -6,7 +6,7 @@ namespace SavingsMate\Domain\Core\Entities;
 
 use Exception;
 use SavingsMate\Domain\Core\Entity;
-use SavingsMate\Domain\Core\Exceptions\SavingsMateEntityException;
+use SavingsMate\Domain\Core\Exceptions\CoreEntityException;
 use SavingsMate\Domain\Core\ValueObjects\CreatedAt;
 use SavingsMate\Domain\Core\ValueObjects\DeletedAt;
 use SavingsMate\Domain\Core\ValueObjects\InactivatedAt;
@@ -14,7 +14,7 @@ use SavingsMate\Domain\Core\ValueObjects\Password;
 use SavingsMate\Domain\Core\ValueObjects\UpdatedAt;
 use SavingsMate\Domain\Core\ValueObjects\Uuid;
 use SavingsMate\Interfaces\Domain\Core\Entities\IUser;
-use SavingsMate\Interfaces\Domain\Core\Exceptions\ISavingsMateEntityException;
+use SavingsMate\Interfaces\Domain\Core\Exceptions\ICoreEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
@@ -52,7 +52,7 @@ final readonly class User extends Entity implements IUser
     }
 
     /**
-     * @throws ISavingsMateEntityException
+     * @throws ICoreEntityException
      */
     public static function create(
         string $name,
@@ -76,7 +76,7 @@ final readonly class User extends Entity implements IUser
                 updatedAt: $updatedAt ?? UpdatedAt::now(),
             );
         } catch (Exception) {
-            throw SavingsMateEntityException::InvalidEntity(__CLASS__);
+            throw CoreEntityException::InvalidEntity(__CLASS__);
         }
     }
 }

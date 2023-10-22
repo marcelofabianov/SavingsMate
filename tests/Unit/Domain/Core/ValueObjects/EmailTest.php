@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use function Pest\Faker\fake;
 
-use SavingsMate\Domain\Core\Exceptions\SavingsMateValueObjectException;
+use SavingsMate\Domain\Core\Exceptions\CoreValueObjectException;
 use SavingsMate\Domain\Core\ValueObjects\Email;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IEmail;
 
@@ -22,7 +22,7 @@ test('Deve criar uma nova instancia de Email quando informado um email valido')
 
 test('Deve lancar uma exception quando tentar criar uma nova instancia com email invalido')
     ->group('Email', 'ValueObject', 'Domain', 'Core', 'Unit')
-    ->throws(SavingsMateValueObjectException::class)
+    ->throws(CoreValueObjectException::class)
     ->expect(fn () => Email::create('invalido'));
 
 test('Deve retornar true quando validado que o email é igual a outro email')
