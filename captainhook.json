@@ -11,12 +11,12 @@
         "enabled": true,
         "actions": [
             {
-                "action": "./vendor/bin/phpstan analyse src",
+                "action": "./vendor/bin/pint",
                 "options": [],
                 "conditions": []
             },
             {
-                "action": "./vendor/bin/pint",
+                "action": "./vendor/bin/phpstan analyse src",
                 "options": [],
                 "conditions": []
             },
