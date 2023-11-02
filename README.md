@@ -1,5 +1,7 @@
 # SavingsMate
 
+**Repositório criado com objetivo de estudo sobre arquitetura e modelagem de software.**
+
 **FinanceWise** é uma aplicação amigável e repleta de recursos projetada para capacitar você a assumir o controle de suas finanças pessoais. Gerenciar seu dinheiro nunca foi tão fácil.
 
 ## Requisitos
