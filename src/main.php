@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use SavingsMate\App;
+
 require __DIR__.'/../vendor/autoload.php';
 
-dd('SavingsMate');
+$app = new App();
+$app->register();
