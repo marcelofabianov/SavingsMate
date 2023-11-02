@@ -16,7 +16,7 @@ use SavingsMate\Domain\Transaction\Exceptions\TransactionEntityException;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\ICreatedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IDeletedAt;
 use SavingsMate\Interfaces\Domain\Core\ValueObjects\IUuid;
-use SavingsMate\Interfaces\Domain\Transaction\Dtos\ICreateNewTransactionDto;
+use SavingsMate\Interfaces\Domain\Transaction\Dto\ICreateNewTransactionDto;
 use SavingsMate\Interfaces\Domain\Transaction\Entities\ITransaction;
 use SavingsMate\Interfaces\Domain\Transaction\Exceptions\ITransactionEntityException;
 use Throwable;
